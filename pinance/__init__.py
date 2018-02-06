@@ -66,8 +66,9 @@ def options_params(a, b, c):
 
 class Base(object):
 
-  def __init__(self, symbol):
+  def __init__(self, symbol, exch):
     self.symbol = symbol
+    self.exch = exch
 
   def __request_quotes__(self):
     gfinance_data = gfinance.get_quotes(self.symbol)
@@ -76,7 +77,7 @@ class Base(object):
     return combine_objects(gfinance_data, yfinance_data, yfinance2_data)
 
   def __request_news__(self):
-    gfinance_news = gfinancenews.get_news(self.symbol)
+    gfinance_news = gfinancenews.get_news(self.symbol, self.exch)
     return gfinance_news
 
   def __request_options__(self, a, b, c):
@@ -96,9 +97,10 @@ class Base(object):
 
 class Pinance(Base):
 
-  def __init__(self, symbol):
-    super(Pinance, self).__init__(symbol)
+  def __init__(self, symbol, exch):
+    super(Pinance, self).__init__(symbol, exch)
     self.symbol = symbol
+    self.exch = exch
 
   def get_quotes(self):
     self.__getQuotes__()

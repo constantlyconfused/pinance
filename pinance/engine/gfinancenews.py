@@ -18,9 +18,9 @@ from urllib.request import Request, urlopen
 
 
 # Make request to google finance
-def makeRequest(symbol):
+def makeRequest(symbol, exch):
   url = 'http://www.google.com/finance/company_news?output=json&q=' \
-        + symbol + '&start=0&num=1000'
+        + symbol + '&x=' + exch + 'start=0&num=1000'
   try:
     req = Request(url)
     resp = urlopen(req)
@@ -37,8 +37,8 @@ def makeRequest(symbol):
     return []
 
 
-def get_news(symbol):
-  response = makeRequest(symbol)
+def get_news(symbol, exch):
+  response = makeRequest(symbol, exch)
   if response:
     return response
   return []
